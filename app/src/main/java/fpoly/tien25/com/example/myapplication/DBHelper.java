@@ -34,15 +34,6 @@ public class DBHelper  extends SQLiteOpenHelper {
                 ")";
         db.execSQL(createSanPham);
 
-        String createNhanVien = "CREATE TABLE NhanVien (" +
-                "maNhanVien TEXT PRIMARY KEY, " +
-                "tenNhanVien TEXT, " +
-                "diaChi TEXT, " +
-                "chucVu INTEGER, " +
-                "luong REAL, " +
-                "matKhau TEXT" +
-                ")";
-        db.execSQL(createNhanVien);
 
         // 4. KhachHang
         String createKhachHang = "CREATE TABLE KhachHang (" +
@@ -83,7 +74,6 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS SanPham");
         db.execSQL("DROP TABLE IF EXISTS DanhMuc");
         db.execSQL("DROP TABLE IF EXISTS KhachHang");
-        db.execSQL("DROP TABLE IF EXISTS NhanVien");
         onCreate(db);
 
     }
