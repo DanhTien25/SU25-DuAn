@@ -8,72 +8,71 @@ import androidx.annotation.Nullable;
 
 public class DBHelper  extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "userdb.db";
-    private static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "mart.db";
+    public static final int DATABASE_VERSION = 1;
 
-    public DBHelper( Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createDanhMuc = "CREATE TABLE DanhMuc (" +
-                "maDanhMuc TEXT PRIMARY KEY, " +
-                "ten_danh_muc TEXT" +
-                ")";
-        db.execSQL(createDanhMuc);
 
-        String createSanPham = "CREATE TABLE SanPham (" +
-                "maSanPham TEXT PRIMARY KEY, " +
-                "tenSanPham TEXT, " +
-                "giaSanPham REAL, " +
-                "soLuong INTEGER, " +
-                "donViTinh TEXT, " +
-                "ngayNhap TEXT, " +
-                "maDanhMuc TEXT REFERENCES DanhMuc(maDanhMuc)" +
-                ")";
-        db.execSQL(createSanPham);
+        db.execSQL("CREATE TABLE Categories (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL UNIQUE)");
 
+        db.execSQL("CREATE TABLE Users (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "username TEXT UNIQUE NOT NULL, " +
+                "password TEXT NOT NULL, " +
+                "fullName TEXT)");
 
-        // 4. KhachHang
-        String createKhachHang = "CREATE TABLE KhachHang (" +
-                "maKhachHang TEXT PRIMARY KEY, " +
-                "tenKhachHang TEXT, " +
-                "diaChi TEXT, " +
-                "soDienThoai TEXT, " +
-                "email TEXT" +
-                ")";
-        db.execSQL(createKhachHang);
+        db.execSQL("CREATE TABLE Customers (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL, " +
+                "phone TEXT, " +
+                "address TEXT)");
 
-        // 5. HoaDon
-        String createHoaDon = "CREATE TABLE HoaDon (" +
-                "maHoaDon TEXT PRIMARY KEY, " +
-                "maNhanVien TEXT REFERENCES NhanVien(maNhanVien), " +
-                "maKhachHang TEXT REFERENCES KhachHang(maKhachHang), " +
-                "ngayLap TEXT, " +
-                "tongTien REAL" +
-                ")";
-        db.execSQL(createHoaDon);
+        db.execSQL("CREATE TABLE Products (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL, " +
+                "price REAL NOT NULL, " +
+                "stock INTEGER NOT NULL DEFAULT 0, " +
+                "categoryId INTEGER, " +
+                "FOREIGN KEY(categoryId) REFERENCES Categories(id))");
 
-        // 6. HoaDonChiTiet
-        String createHDCT = "CREATE TABLE HoaDonChiTiet (" +
-                "maHDCT TEXT PRIMARY KEY, " +
-                "maHoaDon TEXT REFERENCES HoaDon(maHoaDon), " +
-                "maSanPham TEXT REFERENCES SanPham(maSanPham), " +
-                "soLuong INTEGER, " +
-                "donGia REAL" +
-                ")";
-        db.execSQL(createHDCT);
+        db.execSQL("CREATE TABLE Invoices (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "customerId INTEGER, " +
+                "userId INTEGER, " +
+                "date TEXT NOT NULL, " +
+                "total REAL NOT NULL, " +
+                "FOREIGN KEY(customerId) REFERENCES Customers(id)," +
+                "FOREIGN KEY(userId) REFERENCES Users(id))");
+
+        db.execSQL("CREATE TABLE InvoiceDetails (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "invoiceId INTEGER NOT NULL, " +
+                "productId INTEGER NOT NULL, " +
+                "quantity INTEGER NOT NULL, " +
+                "price REAL NOT NULL, " +
+                "FOREIGN KEY(invoiceId) REFERENCES Invoices(id)," +
+                "FOREIGN KEY(productId) REFERENCES Products(id))");
+
+        // Seed default admin user
+        db.execSQL("INSERT INTO Users(username, password, fullName) VALUES('admin','123','Quản trị')");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS HoaDonChiTiet");
-        db.execSQL("DROP TABLE IF EXISTS HoaDon");
-        db.execSQL("DROP TABLE IF EXISTS SanPham");
-        db.execSQL("DROP TABLE IF EXISTS DanhMuc");
-        db.execSQL("DROP TABLE IF EXISTS KhachHang");
+        db.execSQL("DROP TABLE IF EXISTS InvoiceDetails");
+        db.execSQL("DROP TABLE IF EXISTS Invoices");
+        db.execSQL("DROP TABLE IF EXISTS Products");
+        db.execSQL("DROP TABLE IF EXISTS Customers");
+        db.execSQL("DROP TABLE IF EXISTS Users");
         onCreate(db);
 
     }
