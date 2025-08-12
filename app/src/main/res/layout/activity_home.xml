@@ -126,6 +126,15 @@
             android:orientation="horizontal"
             android:weightSum="3">
 
+            <ImageButton
+                android:id="@+id/btnCategories"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/outline_folder_24"
+                android:contentDescription="Danh mục"
+                android:background="@android:color/transparent" />
+
 
             <ImageButton
                 android:id="@+id/btnChangePassword"
