@@ -1,4 +1,4 @@
-package fpoly.tien25.com.example.myapplication.ui;
+package fpoly.tien25.com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

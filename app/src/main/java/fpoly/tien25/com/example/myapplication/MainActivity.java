@@ -11,7 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import fpoly.tien25.com.example.myapplication.ui.LoginActivity;
+import fpoly.tien25.com.example.myapplication.activity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 

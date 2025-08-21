@@ -13,37 +13,37 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ui.TopProductsActivity"
+            android:name=".activity.TopProductsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.TopCustomersActivity"
+            android:name=".activity.TopCustomersActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SalesActivity"
+            android:name=".activity.SalesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.RevenueActivity"
+            android:name=".activity.RevenueActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ProductActivity"
+            android:name=".activity.ProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PasswordActivity"
+            android:name=".activity.PasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.CustomerActivity"
+            android:name=".activity.CustomerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.CategoryActivity"
+            android:name=".activity.CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".Product"
